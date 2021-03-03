@@ -75,5 +75,12 @@ export default async function getAllRenderInfo()
 		//console.log(JSON.stringify(meshTransform));
 	}
 
-    return meshTransformVec;
+    const cameraData = await FormIt.Cameras.GetCameraData();
+    const sunData = 'TODO'
+
+    return {
+        meshTransformVec,
+        cameraData,
+        sunData
+    };
 }
