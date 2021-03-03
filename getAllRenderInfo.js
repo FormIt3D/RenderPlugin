@@ -1,6 +1,7 @@
 export default async function getAllRenderInfo() 
 {
-    var mainHistID = await WSM.APIGetActiveHistory();	
+    //temporarily hacking for a bug. On Web this needs to be 0?
+    var mainHistID = 0;//await WSM.APIGetActiveHistory();	
 	
 	// Look at geometry in all reachable Histories.
 	var allHistIDs = await WSM.APIGetAllHistoriesReadOnly(false);

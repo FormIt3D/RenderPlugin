@@ -34,8 +34,8 @@ class Main extends React.Component {
 
         this.socket.onopen = (event) => {
             this.setState({socketIsConnected : true});
-            console.log('sending Plugin connected');
-            this.socket.send('Plugin connected');
+            //console.log('sending Plugin connected');
+            //this.socket.send('Plugin connected');
         };
 
         this.socket.onmessage = (event) => {
