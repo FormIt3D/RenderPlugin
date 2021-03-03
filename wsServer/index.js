@@ -43,5 +43,5 @@ server.on('connection', (socket) => {
         }
     });
 
-    socket.send('Server received connection');
+    //socket.send('Server received connection');
 });

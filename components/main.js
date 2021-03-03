@@ -12,7 +12,9 @@ class Main extends React.Component {
             socketIsConnected: false,
             imageData: ''
         };
+    }
 
+    componentDidMount(){
         this.createSocketConnection();
     }
 
@@ -60,9 +62,12 @@ class Main extends React.Component {
     }
 
     startRender(type){
+        const renderInfo = this.props.getAllRenderInfo();
+        console.log(renderInfo);
+
         this.socket.send(JSON.stringify({
             type,
-            data: 'testdata'
+            data: renderInfo
         }));
     }
 
@@ -79,6 +84,7 @@ class Main extends React.Component {
                         'a',
                         {
                             className: '',
+                            key:'renderStart',
                             onClick: () => {this.startRender('renderArnold')}
                         },
                         'Start Arnold render!'
@@ -87,6 +93,7 @@ class Main extends React.Component {
                         'img',
                         {
                             className: '',
+                            key: 'image',
                             src: `data:image/png;base64,${this.state.imageData}`
                         },
                     )
@@ -99,14 +106,11 @@ class Main extends React.Component {
                 {
                     className: ''
                 },
-                [
-                    'Plugin is unable to connect...',
-                    React.createElement(
-                        InstallerInstructions, 
-                        {},
-                        null
-                    )
-                ]
+                React.createElement(
+                    InstallerInstructions, 
+                    {},
+                    null
+                )
             );
         }
     }
