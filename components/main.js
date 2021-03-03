@@ -61,8 +61,8 @@ class Main extends React.Component {
         }
     }
 
-    startRender(type){
-        const renderInfo = this.props.getAllRenderInfo();
+    async startRender(type){
+        const renderInfo = await this.props.getAllRenderInfo();
         console.log(renderInfo);
 
         this.socket.send(JSON.stringify({

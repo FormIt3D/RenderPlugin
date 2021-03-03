@@ -34,6 +34,10 @@ export default async function getAllRenderInfo()
 		var normals = [];
 		var uvs = [];
 
+
+        //temporarily hacking..
+        WSM.nFaceType = 4;
+
 		var faceIDs = await WSM.APIGetAllObjectsByTypeReadOnly(currentHistID, WSM.nFaceType);		
 		for (var j = 0; j < faceIDs.length; j++)
 		{
