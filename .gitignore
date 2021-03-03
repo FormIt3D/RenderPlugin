@@ -1,2 +1,4 @@
 wsServer/plugin-render-server-win.exe
+wsServer/plugin-render-server-macos
+wsServer/plugin-render-server-linux
 wsServer/node_modules/*
