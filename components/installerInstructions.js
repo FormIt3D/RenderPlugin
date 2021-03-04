@@ -10,7 +10,8 @@ class InstallerInstructions extends React.Component {
         return React.createElement(
             'div',
             {
-                className: ''
+                className: '',
+                key: 'InstallerInstructions'
             },
             'Have you installed the rendering plugin? Instructions to go here.'
         );

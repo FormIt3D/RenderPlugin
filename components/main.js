@@ -74,31 +74,41 @@ class Main extends React.Component {
     render() {
 
         if(this.state.socketIsConnected){
-            return React.createElement(
-                'div',
-                {
-                    className: '',
-                },
-                [
-                    React.createElement(
-                        'a',
-                        {
-                            className: '',
-                            key:'renderStart',
-                            onClick: () => {this.startRender('renderArnold')}
-                        },
-                        'Start Arnold render!'
-                    ),
-                    React.createElement(
-                        'img',
-                        {
-                            className: '',
-                            key: 'image',
-                            src: `data:image/png;base64,${this.state.imageData}`
-                        },
-                    )
-                ]
-            );
+
+            const image = this.state.imageData
+                ? React.createElement(
+                    'img',
+                    {
+                        className: '',
+                        key: 'image',
+                        src: `data:image/png;base64,${this.state.imageData}`
+                    },
+                    null
+                )
+                : null;
+
+            return [
+                React.createElement(
+                    'div',
+                    {
+                        id: 'RenderButtonContainer',
+                        className: 'center',
+                        key:'renderButtonContainer'
+                    },
+                    [
+                        React.createElement(
+                            'button',
+                            {
+                                className: 'button is-link block',
+                                key:'renderButton',
+                                onClick: () => {this.startRender('renderArnold')}
+                            },
+                            'Start Arnold Render'
+                        )
+                    ]
+                ),
+                image
+        ];
             
         }else{
             return React.createElement(

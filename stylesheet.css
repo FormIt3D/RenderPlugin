@@ -1,0 +1,11 @@
+.center {
+    text-align:center;
+}
+
+.block {
+    display:block;
+}
+
+#RenderButtonContainer button {
+    margin:20px;
+}
