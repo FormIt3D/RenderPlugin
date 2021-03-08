@@ -3,5 +3,8 @@
     "PluginDescription": "Render FormIt Scenes!",
     "PluginType": "Panel",
     "Panel": "PLUGINLOCATION/index.html",
+    "Scripts": [
+        "PLUGINLOCATION/getAllRenderInfoEmbedded.js"
+    ],
     "PanelIcon": "PLUGINLOCATION/plugin.png"
 }

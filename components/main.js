@@ -63,13 +63,30 @@ class Main extends React.Component {
     }
 
     async startRender(type){
-        const renderInfo = await this.props.getAllRenderInfo();
-        console.log(renderInfo);
 
-        this.socket.send(JSON.stringify({
-            type,
-            data: renderInfo
-        }));
+        const startTime = performance.now();
+        
+        //temporary, just testing.
+        if (type === 'debugGetAllRenderInfo'){
+            FormItInterface.CallMethod("RenderPlugin.getAllRenderInfo", '', function(result){
+                console.log(result);
+
+                const endTime = performance.now();
+                console.log(`Call to getAllRenderInfo took ${endTime - startTime} milliseconds.`);
+            });
+        }else{
+            const renderInfo = await this.props.getAllRenderInfo();
+
+            console.log(renderInfo);
+
+            const endTime = performance.now();
+            console.log(`Call to getAllRenderInfo took ${endTime - startTime} milliseconds.`);
+
+            this.socket.send(JSON.stringify({
+                type,
+                data: renderInfo
+            }));
+        }
     }
 
     render() {
@@ -148,11 +165,20 @@ class Main extends React.Component {
                     React.createElement(
                         'a',
                         {
-                            className: '',
+                            className: 'block',
                             key:'tryDebugRender',
                             onClick: () => {this.startRender('renderArnold')}
                         },
                         'Try anyways, to gether debug data.'
+                    ),
+                    React.createElement(
+                        'a',
+                        {
+                            className: 'block',
+                            key:'debugGetAllRenderInfo',
+                            onClick: () => {this.startRender('debugGetAllRenderInfo')}
+                        },
+                        'Try anyways, to gether debug data IN PROCESS'
                     ),
                 ]
             );
