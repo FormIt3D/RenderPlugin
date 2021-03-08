@@ -1,6 +1,7 @@
 'use strict';
 
 import InstallerInstructions from "./installerInstructions.js";
+import SceneLights from "./sceneLights.js"
 
 class Main extends React.Component {
     constructor(props) {
@@ -103,24 +104,57 @@ class Main extends React.Component {
                                 key:'renderButton',
                                 onClick: () => {this.startRender('renderArnold')}
                             },
-                            'Start Arnold Render'
+                            [
+                                React.createElement(
+                                    'img',
+                                    {
+                                        className: '',
+                                        key: 'arnoldImage',
+                                        src: `./images/arnold.jpg`
+                                    },
+                                    null
+                                ),
+                                React.createElement(
+                                    'span',
+                                    {
+                                        className: '',
+                                        key: 'renderButtonText',
+                                    },
+                                    'Start Arnold Render'
+                                )
+                            ]
                         )
                     ]
                 ),
-                image
-        ];
-            
+                image,
+                React.createElement(
+                    SceneLights, 
+                    {key:'SceneLights'},
+                    null
+                )
+            ];
         }else{
             return React.createElement(
                 'div',
                 {
                     className: ''
                 },
-                React.createElement(
-                    InstallerInstructions, 
-                    {},
-                    null
-                )
+                [
+                    React.createElement(
+                        InstallerInstructions,
+                        {key:'InstallerInstructionsContainer',},
+                        null
+                    ),
+                    React.createElement(
+                        'a',
+                        {
+                            className: '',
+                            key:'tryDebugRender',
+                            onClick: () => {this.startRender('renderArnold')}
+                        },
+                        'Try anyways, to gether debug data.'
+                    ),
+                ]
             );
         }
     }

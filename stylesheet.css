@@ -6,6 +6,16 @@
     display:block;
 }
 
+button i {
+    margin-left:10px;
+}
+
 #RenderButtonContainer button {
     margin:20px;
+}
+
+#RenderButtonContainer button img {
+    height: 40px;
+    mix-blend-mode: multiply;
+    margin-right: 12px;
 }
