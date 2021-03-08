@@ -169,7 +169,7 @@ class Main extends React.Component {
                             key:'tryDebugRender',
                             onClick: () => {this.startRender('renderArnold')}
                         },
-                        'Try anyways, to gether debug data.'
+                        'Try anyways, to gather debug data.'
                     ),
                     React.createElement(
                         'a',
@@ -178,7 +178,7 @@ class Main extends React.Component {
                             key:'debugGetAllRenderInfo',
                             onClick: () => {this.startRender('debugGetAllRenderInfo')}
                         },
-                        'Try anyways, to gether debug data IN PROCESS'
+                        'Try anyways, to gather debug data IN PROCESS'
                     ),
                 ]
             );
