@@ -135,8 +135,8 @@ RenderPlugin.getAllRenderInfo = function(args, callback) {
         //console.log(JSON.stringify(materialVec));
         //console.log(JSON.stringify(materialNameToIndexMap));
         return {
-            meshTransformVec,
-            materialVec
+            meshTransformVec: meshTransformVec,
+            materialVec: materialVec
         };
     }
 
@@ -148,16 +148,15 @@ RenderPlugin.getAllRenderInfo = function(args, callback) {
     const sunData = {'TODO':'TODO'};
     const lights = [{'TODO':'TODO'}];
 
+    cameraData.worldUp = worldUp;
+    cameraData.worldForward = worldForward;
+
     const allData = {
         meshTransformVec: sceneData.meshTransformVec,
         materialVec: sceneData.materialVec,
-        cameraData: {
-            ...cameraData, 
-            worldUp: {...worldUp}, 
-            worldForward: {...worldForward}
-        },
-        sunData,
-        lights
+        cameraData: cameraData,
+        sunData : sunData,
+        lights: lights
     };
 
     console.log(JSON.stringify(allData));
