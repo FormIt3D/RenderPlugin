@@ -12,10 +12,13 @@ button i {
 
 #RenderButtonContainer button {
     margin:20px;
+    padding-left:40px;
 }
 
 #RenderButtonContainer button img {
     height: 40px;
+    position: absolute;
+    left: 0;
     mix-blend-mode: multiply;
     margin-right: 12px;
 }

@@ -33,7 +33,7 @@ RenderPlugin.getAllRenderInfo = function(args, callback) {
         }
     
         var result = true; 
-        var mainHistID = WSM.APIGetActiveHistory();	
+        var mainHistID = 0;//WSM.APIGetActiveHistory();	
         
         // This is just for test - do not keep.
         //FormIt.OpenFile(testPath + "/test1.axm");
