@@ -66,27 +66,20 @@ class Main extends React.Component {
 
         const startTime = performance.now();
         
-        //temporary, just testing.
-        if (type === 'debugGetAllRenderInfo'){
-            FormItInterface.CallMethod("RenderPlugin.getAllRenderInfo", '', function(result){
-                console.log(result);
-
-                const endTime = performance.now();
-                console.log(`Call to getAllRenderInfo took ${endTime - startTime} milliseconds.`);
-            });
-        }else{
-            const renderInfo = await this.props.getAllRenderInfo();
-
-            console.log(renderInfo);
-
+        const sendData = (data) => {
             const endTime = performance.now();
             console.log(`Call to getAllRenderInfo took ${endTime - startTime} milliseconds.`);
 
             this.socket.send(JSON.stringify({
                 type,
-                data: renderInfo
+                data
             }));
         }
+
+        FormItInterface.CallMethod("RenderPlugin.getAllRenderInfo", '', (renderInfo) => {
+            console.log(renderInfo);
+            sendData(renderInfo);
+        });
     }
 
     render() {
@@ -169,17 +162,8 @@ class Main extends React.Component {
                             key:'tryDebugRender',
                             onClick: () => {this.startRender('renderArnold')}
                         },
-                        'Try anyways, to gather debug data.'
-                    ),
-                    React.createElement(
-                        'a',
-                        {
-                            className: 'block',
-                            key:'debugGetAllRenderInfo',
-                            onClick: () => {this.startRender('debugGetAllRenderInfo')}
-                        },
-                        'Try anyways, to gather debug data IN PROCESS'
-                    ),
+                        'Try anyways just to log payload which would normally be sent over socket.'
+                    )
                 ]
             );
         }
