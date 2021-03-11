@@ -1,7 +1,7 @@
 'use strict';
 
-import InstallerInstructions from "./installerInstructions.js";
-import SceneLights from "./sceneLights.js"
+import InstallerInstructions from "./installerInstructions.js"
+import Settings from "./settings.js"
 
 class Main extends React.Component {
     constructor(props) {
@@ -138,8 +138,8 @@ class Main extends React.Component {
                 ),
                 image,
                 React.createElement(
-                    SceneLights, 
-                    {key:'SceneLights'},
+                    Settings, 
+                    {key:'Settings'},
                     null
                 )
             ];

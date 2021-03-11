@@ -6,19 +6,45 @@
     display:block;
 }
 
+.settingsHeader{
+    padding:10px;
+    font-size:20px;
+}
+
+.settingsHeader + div{
+    padding-left:40px;
+    padding-right:40px;
+}
+
 button i {
     margin-left:10px;
+}
+
+#RenderButtonContainer{
+    padding:20px;
 }
 
 #RenderButtonContainer button {
     margin:20px;
     padding-left:40px;
+    margin: auto;
+    width: 240px;
 }
 
 #RenderButtonContainer button img {
     height: 40px;
     position: absolute;
     left: 0;
+    top:0;
     mix-blend-mode: multiply;
     margin-right: 12px;
+}
+
+#SettingsTabs{
+    font-size: 13px;
+    padding: 8px;
+}
+
+.label{
+    font-weight: normal;
 }
