@@ -11,14 +11,14 @@ class GlobalSettings extends React.Component {
             'div',
             {
                 className: '',
-                key: ''
+                key:'ResSettingsKey'
             },
             [
                 React.createElement(
                     'div',
                     {
                         className: 'field',
-                        key: ''
+                        key: 'WidthField'
                     },
                     [
                         React.createElement(
@@ -51,7 +51,7 @@ class GlobalSettings extends React.Component {
                     'div',
                     {
                         className: 'field',
-                        key: ''
+                        key: 'HeightField'
                     },
                     [
                         React.createElement(
@@ -89,7 +89,7 @@ class GlobalSettings extends React.Component {
             'div',
             {
                 className: 'control',
-                key: ''
+                key:'QualSettingsKey'
             },
             [
                 React.createElement(
@@ -104,6 +104,7 @@ class GlobalSettings extends React.Component {
                             {
                                 type: 'radio',
                                 name:'High',
+                                key: 'HighSettingRadio'
                             },
                             null
                         ),
@@ -122,6 +123,7 @@ class GlobalSettings extends React.Component {
                             {
                                 type: 'radio',
                                 name:'Medium',
+                                key: 'MediumSettingRadio'
                             },
                             null
                         ),
@@ -140,6 +142,7 @@ class GlobalSettings extends React.Component {
                             {
                                 type: 'radio',
                                 name:'Low',
+                                key: 'LowSettingRadio'
                             },
                             null
                         ),
@@ -156,7 +159,7 @@ class GlobalSettings extends React.Component {
                 'div',
                 {
                     className:'settingsHeader',
-                    key: 'RenderQulaitySettings'
+                    key: 'RenderQualitySettings'
                 },
                 'Render Quality'
             ),
@@ -165,7 +168,7 @@ class GlobalSettings extends React.Component {
                 'div',
                 {
                     className:'settingsHeader',
-                    key: 'RenderQulaitySettings'
+                    key: 'ResolutionSettings'
                 },
                 'Resolution'
             ),
