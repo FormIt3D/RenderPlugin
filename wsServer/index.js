@@ -1,21 +1,38 @@
+
 const WebSocket = require('ws');
 const fs = require('fs');
+const user  = require("./cppClient")
 const util = require('util');
-
+var exec = util.promisify(require('child_process').exec);
 const readFile = util.promisify(fs.readFile);
 
 const server = new WebSocket.Server({ port: 9901 });
 
 const renderArnold = async (obj) => {
     const {socket, data} = obj;
-
+    
     //Hook into Arnold here.
+    user.sendwrapper("message", data)
+    /*const { stdout, stderr } = await exec('C:\\Users\\lagadas\\Documents\\Recharge\\Arnold-6.2.0.1-windows\\bin\\ArnoldTest.exe C:\\Users\\lagadas\\Documents\\Recharge\\Arnold-6.2.0.1-windows\\input');
+    console.log('stdout:', stdout);
+    console.error('stderr:', stderr);
 
-    //Temporary, send an image back.
-    const tempImageLocation = 'arnoldTemp.jpg'
+    const base64ImageData = await readFile("C:\\Users\\lagadas\\Documents\\Recharge\\Arnold-6.2.0.1-windows\\input\\scene1.jpg", 'base64');
 
-    const base64ImageData = await readFile(tempImageLocation, 'base64');
 
+    socket.send(JSON.stringify({
+        type:'renderFinished',
+        data: base64ImageData
+    }));*/
+
+}
+
+user.connection.on('hello', function incoming(data) {
+    console.log(data);
+  });
+
+const renderedImage = async (obj) =>{
+    const base64ImageData = await readFile("C:\\Users\\lagadas\\Documents\\Recharge\\Arnold-6.2.0.1-windows\\input\\scene1.jpg", 'base64');
     socket.send(JSON.stringify({
         type:'renderFinished',
         data: base64ImageData
@@ -34,6 +51,9 @@ server.on('connection', (socket) => {
                         socket,
                         data: message.data
                     });
+                    break;
+                case 'hello':
+                    renderedImage()
                     break;
             }
         }

@@ -72,13 +72,13 @@ class Main extends React.Component {
 
             this.socket.send(JSON.stringify({
                 type,
-                data
+                data:data
             }));
         }
 
         FormItInterface.CallMethod("RenderPlugin.getAllRenderInfo", '', (renderInfo) => {
             console.log(renderInfo);
-            sendData(renderInfo);
+            sendData(JSON.parse(renderInfo));
         });
     }
 
