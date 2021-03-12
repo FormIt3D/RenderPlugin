@@ -1,64 +1,115 @@
 'use strict';
 
+import Light from "./light.js"
+
 class SceneLights extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            lights: []
+        };
+
+        this.attributeKey = 'RenderPlugin::Light';
+    }
+
+    async moveLight(light){
+
+        const previousLocation = light.location;
+
+        const newLocation = 
+
+        await WSM.APITransformObjects(mainHistID, [5], await WSM.Geom.MakeRigidTransform(await WSM.Geom.Point3d(-1, -14, 0), await WSM.Geom.Vector3d(1, 0, 0), await WSM.Geom.Vector3d(0, 1, 0), await WSM.Geom.Vector3d(0, 0, 1)));
     }
 
     async addPointLight() {
         await FormIt.UndoManagement.BeginState();
         //temporary hacking
-        var mainHistID = 0;
+        const mainHistID = 0;
+        WSM.nInstanceType = 24
 
-        var point3d = await WSM.Geom.Point3d(30, 30, 30);
-    
-        var pointId = await WSM.APICreateVertex(mainHistID, point3d);
-        var groupId = await WSM.APICreateGroup(mainHistID, [pointId]);
-
-        var instanceId = await WSM.APIGetObjectsByTypeReadOnly(mainHistID, groupId, WSM.nInstanceType);
-
-        var result = await WSM.Utils.SetOrCreateStringAttributeForObject(mainHistID, instanceId, "schaefm::key", "schaefm::value");
-
-
-        console.log(groupId, instanceId, result);
-
-
-        var arrayToCheck = WSM.APIGetAllObjectsByTypeReadOnly(mainHistID, WSM.nInstanceType);
-
-        for (var i = 0; i < arrayToCheck.length; i++)
-        {
-            var objectID = arrayToCheck[i];
-
-            var objectHasStringAttributeResult = WSM.Utils.GetStringAttributeForObject(nHistoryID, objectID, stringAttributeKey);
-            
-
-            //TODO
-
-        }
+        const point3d = await WSM.Geom.Point3d(30, 30, 30);
+        const pointId = await WSM.APICreateVertex(mainHistID, point3d);
+        const groupId = await WSM.APICreateGroup(mainHistID, [pointId]);
+        const instanceId = await WSM.APIGetObjectsByTypeReadOnly(mainHistID, groupId, WSM.nInstanceType);
+        const result = await WSM.Utils.SetOrCreateStringAttributeForObject(mainHistID, instanceId[0], this.attributeKey, "schaefm::TODOvalue");
     
         FormIt.UndoManagement.EndState("Create light.");
+
+        this.discoverAllLights();
+    }
+
+    async discoverAllLights(){
+        //temporary hacking
+        const mainHistID = 0;
+        WSM.nInstanceType = 24
+
+        const objectsToCheck = await WSM.APIGetAllObjectsByTypeReadOnly(mainHistID, WSM.nInstanceType);
+
+        const lightPromises = objectsToCheck.map(async (objectId) => {
+            const res = await WSM.Utils.GetStringAttributeForObject(mainHistID, objectId, this.attributeKey);
+            console.log(res);
+
+            if (res.success){
+
+                const boundingBox = await WSM.APIGetBoxReadOnly(0, objectId);
+                const location = boundingBox.lower;
+
+                return {
+                    objectId,
+                    location
+                }
+            }
+        });
+        
+        let lights = await Promise.all(lightPromises);
+        
+        lights = lights.filter( Boolean );
+
+        this.setState({lights})
+    }
+
+    componentDidMount(){
+        this.discoverAllLights();
     }
 
     render() {
+console.log(this.state.lights)
+        const lightElements = this.state.lights.map((light) => {
+            return React.createElement(
+                Light,
+                {light},
+                null
+            );
+        });
+
         return React.createElement(
             'div',
             {
                 className: '',
                 key: 'SceneLights'
             },
-            React.createElement(
-                'button',
-                {
-                    className: 'button is-warning block',
-                    key:'addPointLight',
-                    onClick: this.addPointLight.bind(this)
-                },
-                [
-                    React.createElement('span', {key:'addPointLight'}, 'Add point light'),
-                    React.createElement('i', {key:'addPointLightIcon', className:'fas fa-lightbulb'}, '')
-                ]
-            )
+            [
+                React.createElement(
+                    'ul',
+                    {
+                        className: '',
+                        key:'allLights',
+                    },
+                    lightElements
+                ),
+                React.createElement(
+                    'button',
+                    {
+                        className: 'button is-warning block',
+                        key:'addPointLight',
+                        onClick: this.addPointLight.bind(this)
+                    },
+                    [
+                        React.createElement('span', {key:'addPointLight'}, 'Add point light'),
+                        React.createElement('i', {key:'addPointLightIcon', className:'fas fa-lightbulb'}, '')
+                    ]
+                )
+            ]
         );
     }
 }

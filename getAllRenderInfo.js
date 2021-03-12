@@ -292,7 +292,30 @@ RenderPlugin.getAllRenderInfo = function(args, callback) {
     var sunLocationData = FormIt.SunAndLocation.GetLocationDateTime();
     var sunVector = FormIt.SunAndLocation.GetLightDirectionFromLocationData(sunLocationData);
 
-    const lights = [{'TODO':'TODO'}];
+    const lights = [];
+
+    const mainHistID = 0;
+    const lightAttrKey = 'RenderPlugin::Light'
+
+    const objectsToCheck = WSM.APIGetAllObjectsByTypeReadOnly(mainHistID, WSM.nInstanceType);
+
+    objectsToCheck.map( function(objectId, index){
+        const res = WSM.Utils.GetStringAttributeForObject(mainHistID, objectId, lightAttrKey);
+
+        if (res.success){
+            const boundingBox = WSM.APIGetBoxReadOnly(0, objectId);
+            const location = boundingBox.lower;
+
+            lights.push({
+                x: location.x,
+                y: location.y,
+                z: location.z,
+                intensity: 300,
+                radius: 10,
+                name: 'lightName-' + index
+            });
+        }
+    });
 
     cameraData.worldUp = worldUp;
     cameraData.worldForward = worldForward;
