@@ -51,6 +51,13 @@ server.on('connection', (socket) => {
                         socket,
                         data: message.data
                     });
+
+                    //temporary save json to file.
+                    fs.writeFile('sample.json', JSON.stringify(message.data), (err) => {
+                        if (err) throw err;
+                        console.log('Saved!');
+                    });
+
                     break;
                 case 'hello':
                     renderedImage()
