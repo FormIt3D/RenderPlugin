@@ -11,13 +11,13 @@
     font-size:20px;
 }
 
+.label{
+    font-weight: normal;
+}
+
 .settingsHeader + div{
     padding-left:40px;
     padding-right:40px;
-}
-
-button i {
-    margin-left:10px;
 }
 
 #RenderButtonContainer{
@@ -45,6 +45,43 @@ button i {
     padding: 8px;
 }
 
-.label{
-    font-weight: normal;
+#SceneLights {
+    padding-left:20px;
+}
+
+#SceneLights span{
+    font-size:12px;
+}
+
+#SceneLights .control{
+    width: 60px;
+    margin: 0px;
+}
+
+#SceneLights select {
+    height: 25px;
+    margin-top: 20px;
+}
+
+#SceneLights .colorInput {
+    margin-top: 20px;
+}
+
+#SceneLights .submitLightButton{
+    margin-top: 17px;
+    padding: 5px;
+    height: 28px;
+    margin-left: 10px;
+}
+
+#CreateLight{
+    margin-top:20px;
+}
+
+#CreateLight span{
+    font-size: medium;
+}
+
+#CreateLight i {
+    margin-left:10px;
 }

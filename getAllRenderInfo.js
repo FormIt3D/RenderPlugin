@@ -299,19 +299,32 @@ RenderPlugin.getAllRenderInfo = function(args, callback) {
 
     const objectsToCheck = WSM.APIGetAllObjectsByTypeReadOnly(mainHistID, WSM.nInstanceType);
 
-    objectsToCheck.map( function(objectId, index){
+    objectsToCheck.forEach( function(objectId, index){
         const res = WSM.Utils.GetStringAttributeForObject(mainHistID, objectId, lightAttrKey);
 
         if (res.success){
             const boundingBox = WSM.APIGetBoxReadOnly(0, objectId);
             const location = boundingBox.lower;
 
+            const data = JSON.parse(res.value);
+
+            var r = parseInt(data.color.substr(1,2), 16)
+            var g = parseInt(data.color.substr(3,2), 16)
+            var b = parseInt(data.color.substr(5,2), 16)
+            console.log(`red: ${r}, green: ${g}, blue: ${b}`)
+
             lights.push({
                 x: location.x,
                 y: location.y,
                 z: location.z,
-                intensity: 300,
-                radius: 10,
+                type: data.type || 'point',
+                color: {
+                    r: r/255,
+                    g: g/255,
+                    b: b/255
+                },
+                intensity: data.intensity || 80,
+                radius: 0, //https://docs.arnoldrenderer.com/display/A5AFMUG/Point+Light
                 name: 'lightName-' + index
             });
         }

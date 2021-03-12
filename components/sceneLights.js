@@ -31,7 +31,17 @@ class SceneLights extends React.Component {
         const pointId = await WSM.APICreateVertex(mainHistID, point3d);
         const groupId = await WSM.APICreateGroup(mainHistID, [pointId]);
         const instanceId = await WSM.APIGetObjectsByTypeReadOnly(mainHistID, groupId, WSM.nInstanceType);
-        const result = await WSM.Utils.SetOrCreateStringAttributeForObject(mainHistID, instanceId[0], this.attributeKey, "schaefm::TODOvalue");
+        const result = await WSM.Utils.SetOrCreateStringAttributeForObject(
+            mainHistID,
+            instanceId[0],
+            this.attributeKey,
+            JSON.stringify({
+                intensity: 80,
+                radius: 10,
+                color:"#ffffff",
+                type:'point'
+            })
+        );
     
         FormIt.UndoManagement.EndState("Create light.");
 
@@ -41,7 +51,7 @@ class SceneLights extends React.Component {
     async discoverAllLights(){
         //temporary hacking
         const mainHistID = 0;
-        WSM.nInstanceType = 24
+        WSM.nInstanceType = 24;
 
         const objectsToCheck = await WSM.APIGetAllObjectsByTypeReadOnly(mainHistID, WSM.nInstanceType);
 
@@ -50,13 +60,26 @@ class SceneLights extends React.Component {
             console.log(res);
 
             if (res.success){
-
                 const boundingBox = await WSM.APIGetBoxReadOnly(0, objectId);
                 const location = boundingBox.lower;
 
+                //hack fix the existing lights.
+                /*await WSM.Utils.SetOrCreateStringAttributeForObject(
+                    mainHistID,
+                    objectId,
+                    this.attributeKey,
+                    JSON.stringify({
+                        intensity: 80,
+                        radius: 10,
+                        color : '#ffffff',
+                        type: 'point'
+                    })
+                );*/
+
                 return {
                     objectId,
-                    location
+                    location,
+                    data:JSON.parse(res.value)
                 }
             }
         });
@@ -85,6 +108,7 @@ console.log(this.state.lights)
         return React.createElement(
             'div',
             {
+                id: 'SceneLights',
                 className: '',
                 key: 'SceneLights'
             },
@@ -100,12 +124,13 @@ console.log(this.state.lights)
                 React.createElement(
                     'button',
                     {
+                        id:'CreateLight',
                         className: 'button is-warning block',
                         key:'addPointLight',
                         onClick: this.addPointLight.bind(this)
                     },
                     [
-                        React.createElement('span', {key:'addPointLight'}, 'Add point light'),
+                        React.createElement('span', {key:'addPointLight'}, 'Add light'),
                         React.createElement('i', {key:'addPointLightIcon', className:'fas fa-lightbulb'}, '')
                     ]
                 )
