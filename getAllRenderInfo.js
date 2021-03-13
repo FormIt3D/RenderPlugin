@@ -311,7 +311,7 @@ RenderPlugin.getAllRenderInfo = function(args, callback) {
             var r = parseInt(data.color.substr(1,2), 16)
             var g = parseInt(data.color.substr(3,2), 16)
             var b = parseInt(data.color.substr(5,2), 16)
-            console.log(`red: ${r}, green: ${g}, blue: ${b}`)
+            //console.log(`red: ${r}, green: ${g}, blue: ${b}`)
 
             lights.push({
                 x: location.x,
