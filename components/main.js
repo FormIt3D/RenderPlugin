@@ -11,7 +11,8 @@ class Main extends React.Component {
 
         this.state = {
             socketIsConnected: false,
-            imageData: ''
+            imageData: '',
+            isWaitingForImage: false
         };
     }
 
@@ -44,7 +45,10 @@ class Main extends React.Component {
 
             switch(message.type){
                 case 'renderFinished':
-                    this.setState({'imageData': message.data});
+                    this.setState({
+                        imageData: message.data,
+                        isWaitingForImage: false
+                    });
                     break;
             }
         }
@@ -64,6 +68,11 @@ class Main extends React.Component {
 
     async startRender(type){
 
+        this.setState({
+            imageData: '',
+            isWaitingForImage: true
+        });
+
         const startTime = performance.now();
         
         const sendData = (data) => {
@@ -77,7 +86,7 @@ class Main extends React.Component {
         }
 
         FormItInterface.CallMethod("RenderPlugin.getAllRenderInfo", '', (renderInfo) => {
-            console.log(renderInfo);
+            //console.log(renderInfo);
             sendData(JSON.parse(renderInfo));
         });
     }
@@ -93,6 +102,18 @@ class Main extends React.Component {
                         className: '',
                         key: 'image',
                         src: `data:image/png;base64,${this.state.imageData}`
+                    },
+                    null
+                )
+                : null;
+
+            const waitingElement = this.state.isWaitingForImage
+                ? React.createElement(
+                    'div',
+                    {
+                        id:'LoadingControl',
+                        className: 'control is-loading',
+                        key: 'loadingControl',
                     },
                     null
                 )
@@ -137,6 +158,7 @@ class Main extends React.Component {
                     ]
                 ),
                 image,
+                waitingElement,
                 React.createElement(
                     Settings, 
                     {key:'Settings'},

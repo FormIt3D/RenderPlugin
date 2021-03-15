@@ -85,3 +85,10 @@
 #CreateLight i {
     margin-left:10px;
 }
+
+#LoadingControl{
+    height: 200px;
+    font-size: 45px;
+    width: 63%;
+    height: 100px;
+}

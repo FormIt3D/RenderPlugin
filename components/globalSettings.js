@@ -84,6 +84,56 @@ class GlobalSettings extends React.Component {
         ); 
     }
 
+    buildCPUGPUSetting(){
+        return React.createElement(
+            'div',
+            {
+                className: 'control',
+                key:'CPUGPUKey'
+            },
+            [
+                React.createElement(
+                    'label',
+                    {
+                        className: 'radio',
+                        key: 'CPUSetting'
+                    },
+                    [
+                        React.createElement(
+                            'input',
+                            {
+                                type: 'radio',
+                                name:'CPU',
+                                key: 'CPUSettingRadio'
+                            },
+                            null
+                        ),
+                        ' CPU'
+                    ]
+                ),
+                React.createElement(
+                    'label',
+                    {
+                        className: 'radio',
+                        key: 'GPUSetting'
+                    },
+                    [
+                        React.createElement(
+                            'input',
+                            {
+                                type: 'radio',
+                                name:'GPU',
+                                key: 'GPUSettingRadio'
+                            },
+                            null
+                        ),
+                        ' GPU'
+                    ]
+                )
+            ]
+        );
+    }
+
     buildQualitySettings(){
         return React.createElement(
             'div',
@@ -172,7 +222,16 @@ class GlobalSettings extends React.Component {
                 },
                 'Resolution'
             ),
-            this.buildResolutionSettings()
+            this.buildResolutionSettings(),
+            React.createElement(
+                'div',
+                {
+                    className:'settingsHeader',
+                    key: 'ProcessorSettings'
+                },
+                'Renderer'
+            ),
+            this.buildCPUGPUSetting()
         ]
     }
 }
