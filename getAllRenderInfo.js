@@ -319,11 +319,11 @@ RenderPlugin.getAllRenderInfo = function(args, callback) {
                 z: location.z,
                 type: data.type || 'point',
                 color: {
-                    r: r/255,
-                    g: g/255,
-                    b: b/255
+                    r: Number(r/255),
+                    g: Number(g/255),
+                    b: Number(b/255)
                 },
-                intensity: data.intensity || 80,
+                intensity: Number(data.intensity) || 80,
                 radius: 0, //https://docs.arnoldrenderer.com/display/A5AFMUG/Point+Light
                 name: 'lightName-' + index
             });
